@@ -20,7 +20,3 @@ class UserNotAuthorizedError(Exception):
 
 class CommentNotAllowedError(Exception):
     pass
-
-
-class NullSearchException(Exception):
-    pass
