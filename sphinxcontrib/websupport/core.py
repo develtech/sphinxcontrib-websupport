@@ -15,10 +15,8 @@ from os import path
 from six.moves import cPickle as pickle
 from jinja2 import Environment, FileSystemLoader
 
-from sphinx.locale import _
 from sphinx.util.osutil import ensuredir
 from sphinxcontrib.websupport import errors
-from sphinxcontrib.websupport.search import BaseSearch, SEARCH_ADAPTERS
 from sphinxcontrib.websupport.storage import StorageBackend
 
 if False:
@@ -36,7 +34,6 @@ class WebSupport(object):
                  datadir=None,     # defaults to builddir/data
                  staticdir=None,   # defaults to builddir/static
                  doctreedir=None,  # defaults to builddir/doctrees
-                 search=None,      # defaults to no search
                  storage=None,     # defaults to SQLite in datadir
                  status=sys.stdout,
                  warning=sys.stderr,
@@ -58,7 +55,6 @@ class WebSupport(object):
         self.warning = warning
 
         self._init_templating()
-        self._init_search(search)
         self._init_storage(storage)
 
         self._globalcontext = None  # type: ignore
@@ -85,27 +81,15 @@ class WebSupport(object):
         loader = FileSystemLoader(template_path)
         self.template_env = Environment(loader=loader)
 
-    def _init_search(self, search):
-        if isinstance(search, BaseSearch):
-            self.search = search
-        else:
-            mod, cls = SEARCH_ADAPTERS[search or 'null']
-            mod = 'sphinxcontrib.websupport.search.' + mod
-            SearchClass = getattr(__import__(mod, None, None, [cls]), cls)
-            search_path = path.join(self.datadir, 'search')
-            self.search = SearchClass(search_path)
-        self.results_template = \
-            self.template_env.get_template('searchresults.html')
-
     def build(self):
         """Build the documentation. Places the data into the `outdir`
         directory. Use it like this::
 
-            support = WebSupport(srcdir, builddir, search='xapian')
+            support = WebSupport(srcdir, builddir)
             support.build()
 
         This will read reStructured text files from `srcdir`. Then it will
-        build the pickles and search index, placing them into `builddir`.
+        build the pickles, placing them into `builddir`.
         It will also save node data to the database.
         """
         if not self.srcdir:
@@ -115,7 +99,7 @@ class WebSupport(object):
         app = Sphinx(self.srcdir, self.srcdir, self.outdir, self.doctreedir,
                      'websupport', status=self.status, warning=self.warning)
         app.builder.set_webinfo(self.staticdir, self.staticroot,  # type: ignore
-                                self.search, self.storage)
+                                self.storage)
 
         self.storage.pre_build()
         app.build()
@@ -184,30 +168,4 @@ class WebSupport(object):
                 'The document "%s" could not be found' % docname)
 
         document['script'] = document['script']
-        return document
-
-    def get_search_results(self, q):
-        """Perform a search for the query `q`, and create a set
-        of search results. Then render the search results as html and
-        return a context dict like the one created by
-        :meth:`get_document`::
-
-            document = support.get_search_results(q)
-
-        :param q: the search query
-        """
-        results = self.search.query(q)
-        ctx = {
-            'q': q,
-            'search_performed': True,
-            'search_results': results,
-            'docroot': '../',  # XXX
-            '_': _,
-        }
-        document = {
-            'body': self.results_template.render(ctx),
-            'title': 'Search Results',
-            'sidebar': '',
-            'relbar': ''
-        }
         return document

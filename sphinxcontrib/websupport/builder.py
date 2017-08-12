@@ -45,11 +45,10 @@ class WebSupportBuilder(PickleHTMLBuilder):
         # add our custom JS
         self.script_files.append('_static/websupport.js')
 
-    def set_webinfo(self, staticdir, virtual_staticdir, search, storage):
+    def set_webinfo(self, staticdir, virtual_staticdir, storage):
         # type: (unicode, unicode, Any, unicode) -> None
         self.staticdir = staticdir
         self.virtual_staticdir = virtual_staticdir
-        self.search = search
         self.storage = storage
 
     def init_translator_class(self):
@@ -60,7 +59,6 @@ class WebSupportBuilder(PickleHTMLBuilder):
     def prepare_writing(self, docnames):
         # type: (Iterable[unicode]) -> None
         PickleHTMLBuilder.prepare_writing(self, docnames)
-        self.globalcontext['no_search_suffix'] = True
 
     def write_doc(self, docname, doctree):
         # type: (unicode, nodes.Node) -> None
@@ -87,11 +85,6 @@ class WebSupportBuilder(PickleHTMLBuilder):
         title = self.env.longtitles.get(docname)
         title = title and self.render_partial(title)['title'] or ''
         self.index_page(docname, doctree, title)
-
-    def load_indexer(self, docnames):
-        # type: (Iterable[unicode]) -> None
-        self.indexer = self.search  # type: ignore
-        self.indexer.init_indexing(changed=docnames)  # type: ignore
 
     def _render_page(self, pagename, addctx, templatename, event_arg=None):
         # type: (unicode, Dict, unicode, unicode) -> Tuple[Dict, Dict]
@@ -177,10 +170,6 @@ class WebSupportBuilder(PickleHTMLBuilder):
                 if path.isdir(dst):
                     shutil.rmtree(dst)
                 shutil.move(src, dst)
-
-    def dump_search_index(self):
-        # type: () -> None
-        self.indexer.finish_indexing()  # type: ignore
 
 
 def setup(app):

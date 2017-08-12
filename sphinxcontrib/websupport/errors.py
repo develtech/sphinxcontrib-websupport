@@ -12,7 +12,3 @@
 
 class DocumentNotFoundError(Exception):
     pass
-
-
-class NullSearchException(Exception):
-    pass
