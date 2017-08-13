@@ -35,6 +35,8 @@ class WebSupport(object):
                  staticdir=None,   # defaults to builddir/static
                  doctreedir=None,  # defaults to builddir/doctrees
                  storage=None,     # defaults to SQLite in datadir
+                 buildername='websupport',
+                 confoverrides={},
                  status=sys.stdout,
                  warning=sys.stderr,
                  docroot='',
@@ -50,6 +52,9 @@ class WebSupport(object):
         # web server virtual paths
         self.staticroot = staticroot.strip('/')
         self.docroot = docroot.strip('/')
+
+        self.buildername = buildername
+        self.confoverrides = confoverrides
 
         self.status = status
         self.warning = warning
@@ -97,7 +102,8 @@ class WebSupport(object):
 
         from sphinx.application import Sphinx
         app = Sphinx(self.srcdir, self.srcdir, self.outdir, self.doctreedir,
-                     'websupport', status=self.status, warning=self.warning)
+                     self.buildername, self.confoverrides, status=self.status,
+                     warning=self.warning)
         app.builder.set_webinfo(self.staticdir, self.staticroot,  # type: ignore
                                 self.storage)
 
