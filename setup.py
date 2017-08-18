@@ -3,7 +3,7 @@ import os
 from setuptools import setup, find_packages
 
 long_desc = '''
-sphinxcontrib-webuspport provides a Python API to easily integrate Sphinx
+sphinxcontrib-webuspport_lean provides a Python API to easily integrate Sphinx
 documentation into your Web application.
 '''
 
@@ -19,7 +19,9 @@ extras_require = {
 def get_version():
     """Get version number of the package from version.py without importing core module."""
     package_dir = os.path.abspath(os.path.dirname(__file__))
-    version_file = os.path.join(package_dir, 'sphinxcontrib/websupport/version.py')
+    version_file = os.path.join(
+        package_dir, 'sphinxcontrib/websupport_lean/version.py'
+    )
 
     namespace = {}
     with open(version_file, 'rt') as f:
@@ -29,10 +31,10 @@ def get_version():
 
 
 setup(
-    name='sphinxcontrib-websupport',
+    name='sphinxcontrib-websupport_lean',
     version=get_version(),
-    url='http://sphinx-doc.org/',
-    download_url='https://pypi.python.org/pypi/sphinxcontrib-websupport',
+    url='https://devel.tech/site/open-source/',
+    download_url='https://pypi.python.org/pypi/sphinxcontrib-websupport_lean',
     license='BSD',
     author='Georg Brandl',
     author_email='georg@python.org',
