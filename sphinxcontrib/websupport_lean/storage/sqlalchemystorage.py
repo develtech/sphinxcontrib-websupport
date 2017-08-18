@@ -10,8 +10,8 @@
 """
 
 import sqlalchemy
-from sphinxcontrib.websupport.storage import StorageBackend
-from sphinxcontrib.websupport.storage.sqlalchemy_db import Base, Node, \
+from sphinxcontrib.websupport_lean.storage import StorageBackend
+from sphinxcontrib.websupport_lean.storage.sqlalchemy_db import Base, Node, \
     Session
 
 if sqlalchemy.__version__[:3] < '0.5':  # type: ignore
