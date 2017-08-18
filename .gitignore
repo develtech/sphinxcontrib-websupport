@@ -9,4 +9,4 @@
 
 build/
 dist/
-sphinxcontrib_websupport.egg-info/
+*.egg-info/
