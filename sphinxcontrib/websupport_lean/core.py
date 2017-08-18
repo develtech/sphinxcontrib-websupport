@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    sphinxcontrib.websupport.core
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    sphinxcontrib.websupport_lean.core
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Base Module for web support functions.
 
@@ -16,8 +16,8 @@ from six.moves import cPickle as pickle
 from jinja2 import Environment, FileSystemLoader
 
 from sphinx.util.osutil import ensuredir
-from sphinxcontrib.websupport import errors
-from sphinxcontrib.websupport.storage import StorageBackend
+from sphinxcontrib.websupport_lean import errors
+from sphinxcontrib.websupport_lean.storage import StorageBackend
 
 if False:
     # For type annotation
@@ -35,7 +35,7 @@ class WebSupport(object):
                  staticdir=None,   # defaults to builddir/static
                  doctreedir=None,  # defaults to builddir/doctrees
                  storage=None,     # defaults to SQLite in datadir
-                 buildername='websupport',
+                 buildername='websupport_lean',
                  confoverrides={},
                  status=sys.stdout,
                  warning=sys.stderr,
@@ -70,7 +70,7 @@ class WebSupport(object):
         else:
             # If a StorageBackend isn't provided, use the default
             # SQLAlchemy backend.
-            from sphinxcontrib.websupport.storage.sqlalchemystorage \
+            from sphinxcontrib.websupport_lean.storage.sqlalchemystorage \
                 import SQLAlchemyStorage
             if not storage:
                 # no explicit DB path given; create default sqlite database

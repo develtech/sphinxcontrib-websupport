@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    sphinxcontrib.websupport
-    ~~~~~~~~~~~~~~~~~~~~~~~~
+    sphinxcontrib.websupport_lean
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     A Python API to easily integrate Sphinx documentation into Web
     applications.
@@ -12,5 +12,5 @@
 
 __import__('pkg_resources').declare_namespace(__name__)
 
-from sphinxcontrib.websupport.core import WebSupport  # NOQA
-from sphinxcontrib.websupport.version import __version__, __version_info__  # NOQA
+from sphinxcontrib.websupport_lean.core import WebSupport  # NOQA
+from sphinxcontrib.websupport_lean.version import __version__, __version_info__  # NOQA

@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-    sphinxcontrib.websupport.writer
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    sphinxcontrib.websupport_lean.writer
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    sphinxcontrib.websupport writer that adds potential third party annotations.
+    sphinxcontrib.websupport_lean writer that adds potential third party
+    annotations.
 
     :copyright: Copyright 2007-2016 by the Sphinx team, see AUTHORS.
     :license: BSD, see LICENSE for details.

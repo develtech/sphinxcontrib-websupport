@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    sphinx.builders.websupport
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    sphinx.builders.websupport_lean.builder
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Builder for the web support package.
 
@@ -18,7 +18,7 @@ from docutils.io import StringOutput
 from sphinx.jinja2glue import BuiltinTemplateLoader
 from sphinx.util.osutil import os_path, relative_uri, ensuredir, copyfile
 from sphinx.builders.html import PickleHTMLBuilder
-from sphinx.writers.websupport import WebSupportTranslator
+from sphinx.writers.websupport_lean import WebSupportTranslator
 
 if False:
     # For type annotation
@@ -31,7 +31,7 @@ class WebSupportBuilder(PickleHTMLBuilder):
     """
     Builds documents for the web support package.
     """
-    name = 'websupport'
+    name = 'websupport_lean'
 
     def init(self):
         # type: () -> None
