@@ -18,7 +18,7 @@ from docutils.io import StringOutput
 from sphinx.jinja2glue import BuiltinTemplateLoader
 from sphinx.util.osutil import os_path, relative_uri, ensuredir, copyfile
 from sphinx.builders.html import PickleHTMLBuilder
-from sphinx.writers.websupport_lean import WebSupportTranslator
+from .writer import WebSupportTranslator
 
 if False:
     # For type annotation
